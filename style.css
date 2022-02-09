@@ -28,18 +28,28 @@ body {
 .footer-container {
   display: flex;
   justify-content: center;
-  max-width: 1440px;
+  width: 1440px;
   margin: 0 auto;
   padding: 30px;
   gap: 10px;
 }
+.main-container {
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
 .currency-table {
+  max-width: 1200px;
+  border-collapse: collapse;
   box-shadow: 3px 2px 54px 0px rgba(0,0,0,0.75);
 }
-.table-head{
+.table-head
+.currency-abbr-row{
   display: flex;
 }
-.table-head-cell {
+.table-head-cell,
+.currency-abbr-cell,
+.currency-value-cell {
   width: 130px;
   border: white 1px solid;
   padding: 10px;
