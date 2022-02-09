@@ -1,16 +1,18 @@
-async function getData() {
-  const url = 'https://www.nbrb.by/api/exrates/rates?ondate=2022-2-9&periodicity=0';
+async function getDataByDate(date) {
+
+  const url = `https://www.nbrb.by/api/exrates/rates?ondate=${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}&periodicity=0`;
   const res = await fetch(url);
   const data = await res.json();
   console.log(data);
 
   addCurrency(data);
 }
-getData();
 
 function addCurrency(data) {
   const abbrCells = document.querySelectorAll('.currency-abbr-cell');
   const currencyRow = document.querySelector('.currency-value-row');
+
+  currencyRow.innerHTML = '';
 
   for (let cell of abbrCells) {
     let currencyRateCell = document.createElement('td');
@@ -44,3 +46,17 @@ function getValidFormat(value) {
   }
   return partBeforePoint + ',' + partAfterPoint;
 }
+
+let now = new Date();
+const dateField = document.querySelector('.date-field');
+dateField.value = `${now.getFullYear()}-${( (now.getMonth() + 1) < 10) ? `0${now.getMonth() + 1}` : now.getMonth() + 1}-${(now.getDate() < 10) ? `0${now.getDate()}` : now.getDate()}`;
+getDataByDate(now);
+
+const form = document.querySelector('.form');
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+
+  let date = new Date(event.target.date.value);
+
+  getDataByDate(date);
+});
